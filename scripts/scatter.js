@@ -34,9 +34,6 @@ d3.csv('../data_resource/forest_fire_pred.csv', convert, function (data) {
                 xFeature = xSelection.id.split('-')[1];
             }
             anew(data);
-        } else {
-            xSelection = undefined;
-            anew(data);
         }
     };
 
@@ -55,9 +52,6 @@ d3.csv('../data_resource/forest_fire_pred.csv', convert, function (data) {
                 yFeature = ySelection.id.split('-')[1];
             }
             anew(data);
-        } else {
-            ySelection = undefined;
-            anew(data);
         }
     };
 
@@ -67,10 +61,7 @@ d3.csv('../data_resource/forest_fire_pred.csv', convert, function (data) {
 
         if (!selected.classList.contains('selected')) {
             selected.classList.add('selected');
-        } else {
-            selected.classList.remove('selected');
         }
-
         return selected
     }
 });
@@ -160,7 +151,7 @@ function render(data) {
         .duration(1000);
 }
 
-function anew(data) {
+function disappear() {
     d3.selectAll('.dot')
         .transition()
         .attr('r', 5 * rad)
@@ -170,14 +161,17 @@ function anew(data) {
         .attr('r', 0)
         .duration(250);
     d3.selectAll('.tick')
-        .transition()
-        .style('opacity', 0)
+        .transition().style('opacity', 0)
         .duration(250);
     d3.selectAll('text')
         .transition()
         .style('fill', 'red')
         .style('opacity', 0)
         .duration(250);
+}
+
+function anew(data, deselect) {
+    disappear();
 
     setTimeout(function () {
         d3.selectAll('svg').remove();
@@ -185,7 +179,6 @@ function anew(data) {
             render(data);
         }
     }, 501);
-
 }
 
 function convert(d) {
