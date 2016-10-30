@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
+
+* {
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: white;
+    background-color: black;
+}
+
+text{
+    fill: white;
+}
+
+path{
+    stroke: white;
+}
+
+.tick line{
+    stroke: white;
+    stroke-width: 1;
+}
+
+.selected{
+    -webkit-animation-name: pulse;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-iteration-count: infinite;
+}
+
+.dot{
+    -webkit-animation-name: pulse;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-iteration-count: infinite;
+}
+
+.selection ul{
+    list-style: none;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.feature-selection li {
+    font-size: 1.5em;
+    height: inherit;
+    display: block;
+    padding-left: 0.2em;
+    text-decoration: none;
+    cursor: default;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    margin-left: 0;
+    width: 5em;
+    border: 2px solid black;
+}
+
+.feature-selection li:hover {
+    border: 2px solid white;
+}
+
+text{
+    font-size: 1.5em;
+}
+
+h1{
+    font-size: 2em;
+}
+
+@-webkit-keyframes pulse {
+    from { color: #B40404;}
+    50% { color: #FF0000;}
+    to { color: #B40404;}
+}
