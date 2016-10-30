@@ -18,60 +18,62 @@ var yFeature;
 var xSelection;
 var ySelection;
 
-xFeatureList.onclick = function (event) {
-    let selection = select(event);
+d3.csv('../data_resource/forest_fire_pred.csv', convert, function (data) {
+    xFeatureList.onclick = function (event) {
+        let selection = select(event);
 
-    if (xSelection !== selection) {
-        if (xSelection == undefined) {
-            xSelection = selection;
-            xFeature = xSelection.id.split('-')[1];
-            anew();
-            return;
+        if (xSelection !== selection) {
+            if (xSelection == undefined) {
+                xSelection = selection;
+                xFeature = xSelection.id.split('-')[1];
+                anew(data);
+                return;
+            } else {
+                xSelection.classList.remove('selected');
+                xSelection = selection;
+                xFeature = xSelection.id.split('-')[1];
+            }
+            anew(data);
         } else {
-            xSelection.classList.remove('selected');
-            xSelection = selection;
-            xFeature = xSelection.id.split('-')[1];
+            xSelection = undefined;
+            anew(data);
         }
-        anew();
-    } else {
-        xSelection = undefined;
-        anew();
-    }
-};
+    };
 
-yFeatureList.onclick = function (event) {
-    let selection = select(event);
+    yFeatureList.onclick = function (event) {
+        let selection = select(event);
 
-    if (ySelection !== selection) {
-        if (ySelection == undefined) {
-            ySelection = selection;
-            yFeature = ySelection.id.split('-')[1];
-            anew();
-            return;
+        if (ySelection !== selection) {
+            if (ySelection == undefined) {
+                ySelection = selection;
+                yFeature = ySelection.id.split('-')[1];
+                anew(data);
+                return;
+            } else {
+                ySelection.classList.remove('selected');
+                ySelection = selection;
+                yFeature = ySelection.id.split('-')[1];
+            }
+            anew(data);
         } else {
-            ySelection.classList.remove('selected');
-            ySelection = selection;
-            yFeature = ySelection.id.split('-')[1];
+            ySelection = undefined;
+            anew(data);
         }
-        anew();
-    } else {
-        ySelection = undefined;
-        anew();
+    };
+
+    function select(event) {
+        let target = event.target;
+        let selected = document.getElementById(target.id);
+
+        if (!selected.classList.contains('selected')) {
+            selected.classList.add('selected');
+        } else {
+            selected.classList.remove('selected');
+        }
+
+        return selected
     }
-};
-
-function select(event) {
-    let target = event.target;
-    let selected = document.getElementById(target.id);
-
-    if (!selected.classList.contains('selected')) {
-        selected.classList.add('selected');
-    } else {
-        selected.classList.remove('selected');
-    }
-
-    return selected
-}
+});
 
 function render(data) {
     var svg = d3.select('#chart').append('svg')
@@ -112,17 +114,27 @@ function render(data) {
     yScale.domain([d3.min(data, yValue) - 1, d3.max(data, yValue) + 1]).nice();
 
     xAxisGroup
+        .transition()
+        .duration(1000)
         .attr('class', 'axis')
-        .call(xAxis)
+        .call(xAxis);
+
+    xAxisGroup
         .append('text')
         .attr('x', inner_width)
         .attr('y', -labelOffset / 2)
         .attr('fill', '#000')
         .style('text-anchor', 'end')
         .text(xFeature);
+
+    yAxisGroup
+        .transition()
+        .duration(1000)
+        .attr('class', 'axis')
+        .call(yAxis);
+
     yAxisGroup
         .attr('class', 'axis')
-        .call(yAxis)
         .append('text')
         .attr('y', labelOffset)
         .attr('transform', 'rotate(-90)')
@@ -136,27 +148,44 @@ function render(data) {
         .attr('r', rad)
         .attr('cx', xMap)
         .attr('cy', yMap)
+        .attr('r', 0)
         .transition()
         .style('fill', 'red')
-        .duration(500)
-        .transition()
         .attr('r', 5 * rad)
         .style('opacity', 0.3)
-        .duration(1000)
+        .duration(500)
         .transition()
         .attr('r', rad)
         .style('opacity', 1)
         .duration(1000);
-
-    var tran = group.transition().duration(1000);
-    tran.selectAll('path')
 }
 
-function anew() {
-    d3.selectAll('svg').remove();
-    if (xFeature != undefined && yFeature != undefined) {
-        d3.csv('../data_resource/forest_fire_pred.csv', convert, render);
-    }
+function anew(data) {
+    d3.selectAll('.dot')
+        .transition()
+        .attr('r', 5 * rad)
+        .style('opacity', 0.3)
+        .duration(250)
+        .transition()
+        .attr('r', 0)
+        .duration(250);
+    d3.selectAll('.tick')
+        .transition()
+        .style('opacity', 0)
+        .duration(250);
+    d3.selectAll('text')
+        .transition()
+        .style('fill', 'red')
+        .style('opacity', 0)
+        .duration(250);
+
+    setTimeout(function () {
+        d3.selectAll('svg').remove();
+        if (xFeature != undefined && yFeature != undefined) {
+            render(data);
+        }
+    }, 501);
+
 }
 
 function convert(d) {
