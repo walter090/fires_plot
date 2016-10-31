@@ -96,6 +96,9 @@ function render(data) {
             .attr('x', function (d) {
                 return xScale(d['col']);
             })
+            .attr('fill', function (d) {
+                return cScale(d['value']);
+            })
             .attr('transform', 'translate(' + 2 + ')');
     });
 
