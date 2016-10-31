@@ -14,6 +14,10 @@ path{
     stroke: white;
 }
 
+.box{
+    margin: 1px;
+}
+
 .tick line{
     stroke: white;
     stroke-width: 1;

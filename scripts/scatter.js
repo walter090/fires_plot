@@ -19,6 +19,10 @@ var xSelection;
 var ySelection;
 
 d3.csv('../data_resource/forest_fire_pred.csv', convert, function (data) {
+    var svg = d3.select('#scatter').append('svg')
+        .attr('width', width)
+        .attr('height', height);
+
     xFeatureList.onclick = function (event) {
         let selection = select(event);
 
@@ -67,10 +71,6 @@ d3.csv('../data_resource/forest_fire_pred.csv', convert, function (data) {
 });
 
 function render(data) {
-    var svg = d3.select('#chart').append('svg')
-        .attr('width', width)
-        .attr('height', height);
-
     var group = svg.append('g')
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
