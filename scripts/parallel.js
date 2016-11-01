@@ -23,16 +23,6 @@ var svg = d3.select('#parallel')
 
 d3.csv('../data_resource/ordered.csv', function (data) {
     render(data);
-    // var features = d3.keys(data[0]).splice(1, 13);
-    // xScale.domain(features);
-    // features.forEach(function (d) {
-    //     yScale[d] = d3.scaleLinear()
-    //         .domain(d3.extent(data, function (i) {
-    //             return +i[d];
-    //         }))
-    //         .range([inner_height, 0]);
-    // });
-    // console.log(d3.keys(data[0]));
 });
 
 function render(data) {

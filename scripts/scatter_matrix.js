@@ -46,28 +46,28 @@ function renderScatterMatrix(data) {
         });
     svg.selectAll('g')
         .each(function (m) {
-            d3.select(this).append("rect")
-                .style("fill", "black")
-                .style("stroke", "white")
-                .style("stroke-width", 1)
-                .attr("height", 100)
-                .attr("width", 100);
+            d3.select(this).append('rect')
+                .style('fill', 'black')
+                .style('stroke', 'white')
+                .style('stroke-width', 1)
+                .attr('height', 100)
+                .attr('width', 100);
 
-            d3.select(this).append("text")
-                .attr("x", 50)
-                .attr("y", 15)
+            d3.select(this).append('text')
+                .attr('x', 50)
+                .attr('y', 15)
                 .style('font-size', 12)
-                .style("text-anchor", "middle")
+                .style('text-anchor', 'middle')
                 .text(m.a + " - " + m.b);
 
-            d3.select(this).selectAll("circle")
+            d3.select(this).selectAll('circle')
                 .data(data)
                 .enter()
-                .append("circle")
-                .attr("cx", function (d) {return scale[m.a](d[m.a])})
-                .attr("cy", function (d) {return 95 - scale[m.b](d[m.b])})
-                .style('fill', 'red')
+                .append('circle')
                 .attr('r', 0)
+                .attr('cx', function (d) {return scale[m.a](d[m.a])})
+                .attr('cy', function (d) {return 95 - scale[m.b](d[m.b])})
+                .style('fill', 'red')
                 .transition()
                 .style('fill', 'red')
                 .attr('r', 5 * rad)
