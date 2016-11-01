@@ -6,6 +6,17 @@
     background-color: black;
 }
 
+.tooltip{
+    position: absolute;
+    text-align: center;
+    width: 150px;
+    height: 22px;
+    padding: 2px;
+    background: darkolivegreen;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
 text{
     fill: white;
 }

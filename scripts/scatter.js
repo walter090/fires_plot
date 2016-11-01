@@ -174,7 +174,9 @@ function anew(data, deselect) {
     disappear();
 
     setTimeout(function () {
-        d3.selectAll('svg').remove();
+        d3.select('#scatter')
+            .selectAll('svg')
+            .remove();
         if (xFeature != undefined && yFeature != undefined) {
             render(data);
         }

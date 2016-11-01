@@ -58,6 +58,12 @@ function render(data) {
         var box_width = xScale.step();
         var box_height = yScale.step();
 
+        var tip = d3.select('body')
+            .append('div')
+            .attr('class', 'tooltip')
+            .style('opacity', 0)
+            .style('position', 'absolute');
+
         xAxisGroup
             .transition()
             .duration(1000)
@@ -96,9 +102,28 @@ function render(data) {
             .attr('x', function (d) {
                 return xScale(d['col']);
             })
+            .attr('fill', 'black')
+            .on('mouseover', function (d) {
+                tip.transition()
+                    .style('opacity', .9)
+                    .duration(500);
+                tip.html(d['value'])
+                    .style('left', (d3.event.pageX) + 'px')
+                    .style('top', (d3.event.pageY - 28) + 'px');
+            })
+            .on('mouseout', function (d) {
+                tip.transition()
+                    .style("opacity", 0)
+                    .duration(500);
+            })
+            .transition()
+            .attr('fill', 'red')
+            .duration(500)
+            .transition()
             .attr('fill', function (d) {
                 return cScale(d['value']);
             })
+            .duration(1000)
             .attr('transform', 'translate(' + 2 + ')');
     });
 
