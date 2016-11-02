@@ -19,6 +19,7 @@ var xSelection;
 var ySelection;
 
 d3.csv('../data_resource/forest_fire_pred.csv', convert, function (data) {
+    d3.select('svg').remove();
     xFeatureList.onclick = function (event) {
         let selection = select(event);
 

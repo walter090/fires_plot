@@ -40,6 +40,12 @@ path{
     -webkit-animation-iteration-count: infinite;
 }
 
+.glowBar{
+    -webkit-animation-name: redPulse;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-iteration-count: infinite;
+}
+
 .dot{
     -webkit-animation-name: pulse;
     -webkit-animation-duration: 3s;
@@ -83,4 +89,10 @@ h1{
     from { color: #B40404;}
     50% { color: #FF0000;}
     to { color: #B40404;}
+}
+
+@-webkit-keyframes redPulse {
+    from { -webkit-box-shadow: 0 0 3px #B40404; }
+    50% { -webkit-box-shadow: 0 0 6px #FF0000; }
+    to { -webkit-box-shadow: 0 0 3px #B40404; }
 }
