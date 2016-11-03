@@ -16,8 +16,6 @@ function renderScatterMatrix(data) {
         })
     });
 
-    var cScale = d3.scaleSequential(d3.interpolateInferno);
-
     var scale = {};
     attributes.forEach(function (attr) {
         scale[attr] = d3.scaleLinear();
@@ -44,6 +42,7 @@ function renderScatterMatrix(data) {
         .attr("transform", function (d) {
             return "translate(" + (d.x * 100) + "," + (d.y * 100) + ")"
         });
+
     svg.selectAll('g')
         .each(function (m) {
             d3.select(this).append('rect')
@@ -58,15 +57,15 @@ function renderScatterMatrix(data) {
                 .attr('y', 15)
                 .style('font-size', 12)
                 .style('text-anchor', 'middle')
-                .text(m.a + " - " + m.b);
+                .text(m['a'] + " - " + m['b']);
 
             d3.select(this).selectAll('circle')
                 .data(data)
                 .enter()
                 .append('circle')
                 .attr('r', 0)
-                .attr('cx', function (d) {return scale[m.a](d[m.a])})
-                .attr('cy', function (d) {return 95 - scale[m.b](d[m.b])})
+                .attr('cx', function (d) {return scale[m['a']](d[m['a']])})
+                .attr('cy', function (d) {return 95 - scale[m['a']](d[m['b']])})
                 .style('fill', 'red')
                 .transition()
                 .style('fill', 'red')

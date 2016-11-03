@@ -9,7 +9,7 @@ var inner_height = height - margin.top - margin.bottom;
 
 var rad = 1;
 
-d3.csv('../data_resource/mds_attr.csv', function (data) {
+d3.csv('../data_resource/mds.csv', function (data) {
     render(data);
 });
 
